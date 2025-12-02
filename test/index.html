@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nova Web — Build Better Web Experiences with AI</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind config (colors & fonts) -->
+  <script>
+    // Minimal Tailwind config override for consistent palette & type scale
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#4F46E5', // indigo-600 feel
+              50: '#F5F7FF',
+              100: '#EEF2FF',
+              200: '#E0E7FF',
+              300: '#C7D2FE',
+              400: '#A5B4FC',
+              500: '#818CF8',
+              600: '#4F46E5',
+              700: '#4338CA',
+              800: '#3730A3',
+              900: '#312E81'
+            },
+            muted: '#6B7280'
+          },
+          fontFamily: {
+            sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* small helper for smooth scroll on the demo */
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="antialiased bg-white text-gray-800 font-sans">
+
+  <!-- =========================
+       Navigation Bar (Sticky)
+       ========================= -->
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Brand -->
+        <div class="flex items-center space-x-3">
+          <a href="#" class="flex items-center gap-3">
+            <!-- Placeholder logo (simple SVG) -->
+            <svg class="w-8 h-8 text-primary-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="4" fill="currentColor" opacity="0.12"></rect>
+              <path d="M6 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M12 6v12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <span class="font-semibold text-lg text-gray-900">Nova Web</span>
+          </a>
+        </div>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center space-x-8">
+          <a href="#home" class="text-sm font-medium text-gray-700 hover:text-primary-600">Home</a>
+          <a href="#services" class="text-sm font-medium text-gray-700 hover:text-primary-600">Services</a>
+          <a href="#pricing" class="text-sm font-medium text-gray-700 hover:text-primary-600">Pricing</a>
+          <a href="#contact" class="text-sm font-medium text-gray-700 hover:text-primary-600">Contact</a>
+          <a href="#contact" class="ml-2 inline-flex items-center px-4 py-2 rounded-lg text-sm font-semibold bg-primary-600 text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-300">Get Started</a>
+        </nav>
+
+        <!-- Mobile Hamburger -->
+        <div class="md:hidden">
+          <button id="mobileMenuButton" aria-expanded="false" aria-controls="mobileMenu" class="p-2 rounded-md inline-flex items-center justify-center text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-300">
+            <span class="sr-only">Open main menu</span>
+            <!-- hamburger icon -->
+            <svg id="hamburgerIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
+            </svg>
+            <!-- close icon (hidden) -->
+            <svg id="closeIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Panel -->
+    <div id="mobileMenu" class="md:hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 hidden">
+      <div class="pt-4 pb-6 space-y-2">
+        <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Home</a>
+        <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Services</a>
+        <a href="#pricing" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Pricing</a>
+        <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact</a>
+        <a href="#contact" class="block mt-2 px-3 py-2 rounded-md text-base font-semibold bg-primary-600 text-white text-center">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================
+       Hero Section
+       ========================= -->
+  <main id="home" class="relative">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <!-- Left: Headline + CTA -->
+        <div class="lg:col-span-7">
+          <p class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-50 text-primary-600 mb-4 w-max">AI-powered • Modern UI • Fast</p>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-gray-900">
+            Build Better Web Experiences with AI
+          </h1>
+          <p class="mt-5 text-gray-600 max-w-xl text-base sm:text-lg">
+            Nova Web combines thoughtful design and intelligent workflows to help teams ship delightful web experiences faster. We blend human-centered UI with AI-assisted optimizations for performance, accessibility, and conversion.
+          </p>
+
+          <div class="mt-8 flex flex-col sm:flex-row sm:items-center sm:space-x-4 gap-3">
+            <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 rounded-lg text-base font-semibold bg-primary-600 text-white shadow hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-300">
+              <!-- Heroicon: Rocket -->
+              <svg class="w-5 h-5 mr-2 -ml-1" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2c1.657 0 3 1.343 3 3v4" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M5 20a7 7 0 0 0 7 2c1.5-.4 2.9-1.1 4.1-2.1l3.4-3.4c1.4-1.4 1.9-3.5 1.2-5.3l-1.4-3.3c-.9-2.3-3.4-3.6-5.8-2.8L9.4 6.9C7.9 7.5 6.6 8.9 6 10.3l-1.2 3.5C3.9 16.6 4.6 18.8 6 20.2l-.9.8z" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"></path>
+              </svg>
+              Get Started
+            </a>
+
+            <a href="#services" class="inline-flex items-center justify-center px-6 py-3 rounded-lg text-base font-medium border border-gray-200 hover:shadow-sm">
+              Learn More
+            </a>
+          </div>
+
+          <!-- Key stats (optional) -->
+          <div class="mt-8 flex flex-wrap gap-4 text-sm text-muted">
+            <div class="flex items-center space-x-3">
+              <div class="text-2xl font-bold text-gray-900">120+</div>
+              <div class="text-gray-600">Projects completed</div>
+            </div>
+            <div class="flex items-center space-x-3">
+              <div class="text-2xl font-bold text-gray-900">24/7</div>
+              <div class="text-gray-600">Support & monitoring</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Image (hidden on small screens) -->
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl overflow-hidden shadow-lg transform hover:scale-[1.01] transition ease-out duration-300">
+            <!-- Using an Unsplash placeholder image (free) -->
+            <img
+              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder"
+              alt="Team collaborating on UI design"
+              class="w-full h-64 sm:h-80 lg:h-96 object-cover"
+              loading="lazy"
+            />
+            <div class="p-4 bg-gradient-to-t from-black/40 to-transparent text-white">
+              <p class="text-sm">Design systems, prototypes and AI-driven insights.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         Services / Features Section
+         ========================= -->
+    <!-- Section comment: services -->
+    <section id="services" class="bg-primary-50/40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20">
+        <div class="text-center max-w-3xl mx-auto">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900">What We Build</h2>
+          <p class="mt-3 text-gray-600">Modern front-end solutions with performance, accessibility and delightful interactions in mind.</p>
+        </div>
+
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Card 1 -->
+          <article class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-primary-50 text-primary-600 mb-4">
+              <!-- Icon: Lightning -->
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M13 2L3 14h7l-1 8L21 10h-7l-1-8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900">Fast Performance</h3>
+            <p class="mt-2 text-gray-600 text-sm">Optimized bundles, smart caching and lightweight UI primitives so pages feel instant.</p>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-primary-50 text-primary-600 mb-4">
+              <!-- Icon: Puzzle -->
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M21 13v6a2 2 0 0 1-2 2h-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M3 11V5a2 2 0 0 1 2-2h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900">Design Systems</h3>
+            <p class="mt-2 text-gray-600 text-sm">Reusable components and tokens to keep brand consistency and accelerate development.</p>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-primary-50 text-primary-600 mb-4">
+              <!-- Icon: Shield -->
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2l7 4v6c0 5-3.6 9.7-7 11-3.4-1.3-7-6-7-11V6l7-4z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900">Accessibility</h3>
+            <p class="mt-2 text-gray-600 text-sm">WCAG-minded development, keyboard-first interactions and semantic markup.</p>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-primary-50 text-primary-600 mb-4">
+              <!-- Icon: Cloud -->
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M20 17.6A4.4 4.4 0 0 0 15.6 13H9.5A4.5 4.5 0 1 0 9.6 22h10.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900">Cloud Ready</h3>
+            <p class="mt-2 text-gray-600 text-sm">Deployable builds and CI-friendly configurations for modern cloud platforms.</p>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-primary-50 text-primary-600 mb-4">
+              <!-- Icon: Chart -->
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3 3v18h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M12 17V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M17 17V5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900">Analytics</h3>
+            <p class="mt-2 text-gray-600 text-sm">Product analytics and A/B insights to continuously refine user funnels.</p>
+          </article>
+
+          <!-- Card 6 -->
+          <article class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-primary-50 text-primary-600 mb-4">
+              <!-- Icon: Cog -->
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06A2 2 0 0 1 2.7 17.3l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 8.2a1.65 1.65 0 0 0-.33-1.82L4.2 6.3A2 2 0 0 1 7 3.5l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09c0 .637.38 1.2 1 1.51h.12a1.65 1.65 0 0 0 1.82-.33L17.3 4.2A2 2 0 0 1 20.6 7l-.06.06a1.65 1.65 0 0 0-.33 1.82v.12c.31.62.97 1 1.63 1H21a2 2 0 0 1 0 4h-.09c-.66 0-1.32.38-1.63 1z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900">Integrations</h3>
+            <p class="mt-2 text-gray-600 text-sm">Plug into popular tools for authentication, analytics and headless CMS workflows.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         Pricing (Simple placeholder)
+         ========================= -->
+    <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20">
+      <div class="text-center">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900">Transparent Pricing</h2>
+        <p class="mt-3 text-gray-600 max-w-2xl mx-auto">Simple plans for teams of any size. Scale up or down as you need.</p>
+      </div>
+
+      <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Basic -->
+        <div class="rounded-2xl border border-gray-100 p-6 text-center">
+          <div class="text-sm font-semibold text-gray-600 uppercase">Basic</div>
+          <div class="mt-4 text-3xl font-extrabold">Free</div>
+          <div class="mt-2 text-gray-600">Perfect for experimenting and small demos.</div>
+          <ul class="mt-6 text-sm text-gray-600 space-y-2">
+            <li>1 project</li>
+            <li>Community support</li>
+            <li>Limited AI insights</li>
+          </ul>
+          <a href="#contact" class="mt-6 inline-flex items-center justify-center w-full px-4 py-2 rounded-lg text-sm font-semibold bg-white border border-gray-200 hover:shadow-sm">Start Free</a>
+        </div>
+
+        <!-- Pro -->
+        <div class="rounded-2xl border border-primary-600 p-6 text-center bg-white shadow-sm">
+          <div class="text-sm font-semibold text-primary-600 uppercase">Pro</div>
+          <div class="mt-4 text-3xl font-extrabold text-gray-900">$29<span class="text-base font-medium">/mo</span></div>
+          <div class="mt-2 text-gray-600">For small teams and agencies.</div>
+          <ul class="mt-6 text-sm text-gray-600 space-y-2">
+            <li>Unlimited projects</li>
+            <li>Priority support</li>
+            <li>AI performance suggestions</li>
+          </ul>
+          <a href="#contact" class="mt-6 inline-flex items-center justify-center w-full px-4 py-2 rounded-lg text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700">Get Pro</a>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="rounded-2xl border border-gray-100 p-6 text-center">
+          <div class="text-sm font-semibold text-gray-600 uppercase">Enterprise</div>
+          <div class="mt-4 text-3xl font-extrabold">Custom</div>
+          <div class="mt-2 text-gray-600">Enterprise-grade support & SLA.</div>
+          <ul class="mt-6 text-sm text-gray-600 space-y-2">
+            <li>Dedicated account manager</li>
+            <li>On-prem / VPC options</li>
+            <li>Custom integrations</li>
+          </ul>
+          <a href="#contact" class="mt-6 inline-flex items-center justify-center w-full px-4 py-2 rounded-lg text-sm font-semibold bg-white border border-gray-200 hover:shadow-sm">Contact Sales</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         Contact / Lead Form
+         ========================= -->
+    <!-- Section comment: contact -->
+    <section id="contact" class="bg-gradient-to-b from-white to-primary-50/30">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          <div>
+            <h3 class="text-2xl font-extrabold text-gray-900">Get in Touch</h3>
+            <p class="mt-3 text-gray-600">Have a project or want a demo? Fill the form and we'll reach out within one business day.</p>
+
+            <dl class="mt-6 space-y-4 text-sm text-gray-600">
+              <div>
+                <dt class="font-medium">Email</dt>
+                <dd>hello@novaweb.example</dd>
+              </div>
+              <div>
+                <dt class="font-medium">Phone</dt>
+                <dd>+1 (555) 123-4567</dd>
+              </div>
+              <div>
+                <dt class="font-medium">Location</dt>
+                <dd>Remote-first • Worldwide</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Contact Form -->
+          <div>
+            <form id="contactForm" class="bg-white p-6 rounded-2xl shadow-sm space-y-4" novalidate>
+              <!-- Name -->
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                <input id="name" name="name" type="text" required minlength="2" placeholder="Your full name" class="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-300 px-3 py-2" />
+                <p class="mt-1 text-xs text-red-600 hidden" id="nameError">Please enter your name (min 2 characters).</p>
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input id="email" name="email" type="email" required placeholder="you@company.com" class="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-300 px-3 py-2" />
+                <p class="mt-1 text-xs text-red-600 hidden" id="emailError">Please enter a valid email address.</p>
+              </div>
+
+              <!-- Phone -->
+              <div>
+                <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                <input id="phone" name="phone" type="tel" pattern="^\+?[0-9\s\-\(\)]{7,}$" placeholder="+91 98765 43210" class="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-300 px-3 py-2" />
+                <p class="mt-1 text-xs text-red-600 hidden" id="phoneError">Please enter a valid phone number (optional but must be valid if provided).</p>
+              </div>
+
+              <!-- Message -->
+              <div>
+                <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                <textarea id="message" name="message" rows="4" required minlength="10" placeholder="Tell us about your project or question" class="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-300 px-3 py-2"></textarea>
+                <p class="mt-1 text-xs text-red-600 hidden" id="messageError">Please provide a short message (min 10 characters).</p>
+              </div>
+
+              <div class="flex items-center justify-between gap-4">
+                <button type="submit" class="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-semibold bg-primary-600 text-white shadow hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-300">
+                  Send Message
+                </button>
+                <p id="formStatus" class="text-sm text-gray-600 hidden">Your message was sent (demo).</p>
+              </div>
+            </form>
+
+            <p class="mt-3 text-xs text-gray-500">We respect your privacy. This form is only for demo front-end validations — no data will be sent to a server.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================
+       Footer
+       ========================= -->
+  <footer class="bg-white border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="md:flex md:items-center md:justify-between">
+        <div class="flex items-center gap-4">
+          <a href="#" class="flex items-center gap-3">
+            <svg class="w-8 h-8 text-primary-600" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="4" fill="currentColor" opacity="0.12"></rect>
+              <path d="M6 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M12 6v12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <span class="font-semibold text-gray-900">Nova Web</span>
+          </a>
+
+          <div class="text-sm text-gray-600">
+            <div>© <span id="year"></span> Nova Web</div>
+            <div class="text-xs">All rights reserved.</div>
+          </div>
+        </div>
+
+        <div class="mt-6 md:mt-0 flex items-center gap-6">
+          <nav class="hidden sm:flex items-center gap-4">
+            <a href="#home" class="text-sm text-gray-600 hover:text-gray-900">Home</a>
+            <a href="#services" class="text-sm text-gray-600 hover:text-gray-900">Services</a>
+            <a href="#pricing" class="text-sm text-gray-600 hover:text-gray-900">Pricing</a>
+            <a href="#contact" class="text-sm text-gray-600 hover:text-gray-900">Contact</a>
+          </nav>
+
+          <!-- Social icons (placeholders) -->
+          <div class="flex items-center space-x-3">
+            <a href="#" class="p-2 rounded-md hover:bg-gray-50" aria-label="Twitter">
+              <svg class="w-5 h-5 text-gray-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M5 19c11 0 16-9 16-16v-.7A11.5 11.5 0 0 0 22 2.6a7.9 7.9 0 0 1-2.3.6 4 4 0 0 0 1.7-2.3 8 8 0 0 1-2.6 1 4 4 0 0 0-6.8 3.6A11.4 11.4 0 0 1 3.2 3.7a4 4 0 0 0 1.2 5.3A4 4 0 0 1 3 8.8v.05c0 1.9 1.4 3.5 3.2 3.9a4.1 4.1 0 0 1-1.8.07c.5 1.6 2 2.7 3.8 2.7A8.1 8.1 0 0 1 2 17.6 11.4 11.4 0 0 0 8.9 20"></path>
+              </svg>
+            </a>
+            <a href="#" class="p-2 rounded-md hover:bg-gray-50" aria-label="Github">
+              <svg class="w-5 h-5 text-gray-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 .5C5.7.5.9 5.3.9 11.6c0 4.6 2.9 8.5 6.9 9.9.5.1.7-.2.7-.5v-1.9c-2.8.6-3.4-1.2-3.4-1.2-.5-1.1-1.2-1.4-1.2-1.4-1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1 .1 1.6-.5 2-.9.1-.8.4-1.3.7-1.6-2.2-.3-4.5-1.1-4.5-4.9 0-1.1.4-2 1.1-2.7-.1-.3-.5-1.4.1-2.9 0 0 .9-.3 2.8 1.1a9.4 9.4 0 0 1 5.1 0c1.9-1.4 2.8-1.1 2.8-1.1.6 1.5.2 2.6.1 2.9.7.7 1.1 1.6 1.1 2.7 0 3.9-2.3 4.6-4.5 4.9.4.3.8 1 .8 2v3c0 .3.2.7.7.5 4-1.5 6.9-5.4 6.9-9.9C23.1 5.3 18.3.5 12 .5z"></path>
+              </svg>
+            </a>
+            <a href="#" class="p-2 rounded-md hover:bg-gray-50" aria-label="LinkedIn">
+              <svg class="w-5 h-5 text-gray-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M4.98 3.5c0 1.38-1.12 2.5-2.5 2.5S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0 8h4.98v16H0V8zm7.5 0H12v2.2c.6-1.1 2.1-2.2 4.5-2.2 4.8 0 5.5 3.1 5.5 7.1V24H20v-7.4c0-1.8 0-4.1-2.5-4.1-2.5 0-2.9 1.9-2.9 4v7.5H7.5V8z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================
+       Scripts (menu toggle & form validation)
+       ========================= -->
+  <script>
+    // Mobile menu toggle
+    (function() {
+      const btn = document.getElementById('mobileMenuButton');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const hamburgerIcon = document.getElementById('hamburgerIcon');
+      const closeIcon = document.getElementById('closeIcon');
+
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', (!expanded).toString());
+        mobileMenu.classList.toggle('hidden');
+        hamburgerIcon.classList.toggle('hidden');
+        closeIcon.classList.toggle('hidden');
+      });
+    })();
+
+    // Simple front-end form validation (no backend)
+    (function() {
+      const form = document.getElementById('contactForm');
+      const name = document.getElementById('name');
+      const email = document.getElementById('email');
+      const phone = document.getElementById('phone');
+      const message = document.getElementById('message');
+
+      const nameError = document.getElementById('nameError');
+      const emailError = document.getElementById('emailError');
+      const phoneError = document.getElementById('phoneError');
+      const messageError = document.getElementById('messageError');
+      const status = document.getElementById('formStatus');
+
+      function show(el) { el.classList.remove('hidden'); }
+      function hide(el) { el.classList.add('hidden'); }
+
+      function validEmail(v) {
+        // basic email check
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      }
+
+      function validPhone(v) {
+        if (!v) return true; // optional
+        return /^\+?[0-9\s\-\(\)]{7,}$/.test(v);
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        let ok = true;
+
+        // name
+        if (!name.value || name.value.trim().length < 2) { show(nameError); ok = false; } else hide(nameError);
+
+        // email
+        if (!email.value || !validEmail(email.value.trim())) { show(emailError); ok = false; } else hide(emailError);
+
+        // phone (optional but if provided must match)
+        if (!validPhone(phone.value.trim())) { show(phoneError); ok = false; } else hide(phoneError);
+
+        // message
+        if (!message.value || message.value.trim().length < 10) { show(messageError); ok = false; } else hide(messageError);
+
+        if (!ok) {
+          status.classList.add('hidden');
+          return;
+        }
+
+        // Demo success state (no network request)
+        status.textContent = "Thanks! Your message was captured (demo only).";
+        status.classList.remove('hidden');
+        form.reset();
+
+        // subtle focus loss to signal submit
+        setTimeout(() => { status.classList.add('opacity-90'); }, 250);
+      });
+    })();
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+```
